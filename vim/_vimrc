@@ -13,6 +13,7 @@ set go=gcrLteAb 		" Gray menu items (g), use console dialogs (c), right-hand scr
 set showtabline=1		" Show tabs when available
 set guifont=Courier_New:h10:cANSI
 set clipboard=unnamed		" Always use * register for clipboard operations
+set directory=$TEMP		" Use temp directory from environment variable for swap files
 au GUIEnter * simalt ~x		" Maximize VIM window when starting
 
 " Buffer and File settings
