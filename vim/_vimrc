@@ -29,7 +29,7 @@ au BufWritePost * filetype detect			" Detect filetype after saving file
 
 " Tabs and Indentation
 set autoindent			" Copy indentation from previous line
-set cindent			" Indent behaviour for { } /* */ ( ) ...
+set nocindent			" Indent behaviour for { } /* */ ( ) ...
 set smartindent			" Similar to cindent (This is only effective if nocindent)
 set shiftwidth=4		" Indentation width
 set tabstop=4			" Note: Setting 'tabstop' to any other value than 8 can make your file appear wrong in many places (e.g., when printing it)
