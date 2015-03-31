@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="true" context="java" deleted="false" description="Generate equals from Objects.equals(...)" enabled="true" name="equals">	@Override&#13;
+	public boolean equals(Object obj) {&#13;
+		if (this == obj) {&#13;
+			return true;&#13;
+		}&#13;
+		if (obj == null) {&#13;
+			return false;&#13;
+		}&#13;
+		if (getClass() != obj.getClass()) {&#13;
+			return false;&#13;
+		}&#13;
+		${enclosing_type} other = (${enclosing_type}) obj;&#13;
+ &#13;
+		return Objects.equals(this.${cursor}firstVariable, other.firstVariable) &amp;&amp; Objects.equals(this.secondVariable, other.secondVariable);&#13;
+	}</template><template autoinsert="true" context="java" deleted="false" description="Generate hashCode() from Objects.hash(...)" enabled="true" name="hashCode">	@Override&#13;
+	public int hashCode() {&#13;
+		return Objects.hash(${cursor});&#13;
+	}</template><template autoinsert="true" context="java" deleted="false" description="Add SLF4J Logger field" enabled="true" name="logger">${:import(org.slf4j.Logger,org.slf4j.LoggerFactory,org.slf4j.Logger,org.slf4j.Logger)}/** Logger */&#13;
+private static final Logger LOG = LoggerFactory.getLogger(${enclosing_type}.class);&#13;
+&#13;
+</template><template autoinsert="true" context="java" deleted="false" description="" enabled="true" name="marker_getters_and_setters">// ===================&#13;
+// Getters and setters&#13;
+// ===================</template></templates>
