@@ -24,7 +24,7 @@ set fileencodings=ucs-bom,utf-8,default,latin1
 set viminfo+=n$userprofile/_viminfo
 set wildignore+=*.class,*.dvi,*.aux,*.ps,*.pdf		" Add these extensions (+=) to list of ignored files when pressing tab key for auto completion
 set suffixes+=.log,.aux                        		" Add these extensions (+=) to to end of displayed files when editing directories (:e .)
-au BufEnter * if expand("%:h") != "" | cd %:h | en	" Automatically cd to file directory
+au BufEnter * if expand("%:h") != "" | cd "%:h" | en	" Automatically cd to file directory
 au BufWritePost * filetype detect			" Detect filetype after saving file
 
 " Tabs and Indentation
