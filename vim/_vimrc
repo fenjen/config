@@ -48,6 +48,7 @@ set hlsearch
 set incsearch			" Search for /pattern/ while typing
 set ignorecase			" Don't consider case when searching (see smartcase exception)
 set smartcase			" Only consider case when upper case letters are in search string
+set linebreak			" Break lines after words rather than characters (given 'wrap' is on)
 
 " Languages (TODO - the autocommands should go to ftplugin files)
 let g:filetype_inc="php"
