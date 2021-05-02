@@ -1,92 +1,116 @@
 " Window and OS settings
-syntax on                   " Enable syntax highlighting
-behave xterm                " Alternative: mswin
-filetype plugin indent on   " Execute scripts from ftplugin directories
-set autochdir               " Automatically chdir to buffer
-set cmdheight=2             " 2 commandline lines (reduces 'press enter' messages)
-set showcmd                 " Shows incomplete commands and displays the number of selected characters / lines in visual mode
-set splitright              " Put new split windows right
-set splitbelow              " Put new split windows below
-set laststatus=2            " Always show status line
-set display=lastline        " Show incomplete last lines
-set go=gcrLteAb             " Gray menu items (g), use console dialogs (c), right-hand scrollbar (r), left-hand scrollbar on vertical split (L), tearoff menu items (t), add tab pages (e), copy in visual mode uses clipboard (Aa)
-set showtabline=1           " Show tabs when available
-set clipboard=unnamed       " Always use * register for clipboard operations
-set directory=$TEMP         " Use temp directory from environment variable for swap files
-set sidescroll=1            " Do not jump when scrolling right, scroll char by char
-set scrolloff=3             " Always keep 3 lines below or above cursor in view
-set sidescrolloff=3         " Always keep 3 characters left or right from cursor in view
+syntax on                           " Enable syntax highlighting
+behave xterm                        " Alternative: mswin
+filetype plugin indent on           " Execute scripts from ftplugin directories
+
+set go=gcrLteAb                     " Gray menu items (g), use console dialogs (c), right-hand scrollbar (r), left-hand scrollbar on vertical split (L), tearoff menu items (t), add tab pages (e), copy in visual mode uses clipboard (Aa)
+set showtabline=1                   " Show tabs when available
+set cmdheight=2                     " 2 commandline lines (reduces 'press enter' messages)
+set showcmd                         " Shows incomplete commands and displays the number of selected characters / lines in visual mode
+set laststatus=2                    " Always show status line
 set statusline=%1*%.5Y\ %2*%.60F%1*\ [%M%R]\ [buf\ %3*%n%1*]\ [0x%B]\ [%3*%3l,%3c%1*]\ [offset:\ %o,\ %p%%]\ %{&endofline?'':'[noeol]'}
+set display=lastline                " Show incomplete last lines
 set guifont=Consolas:h9:cANSI:qDRAFT
-" au GUIEnter * simalt ~x   " Maximize VIM window when starting
-set lines=40 columns=160    " Craete a bigger window when starting
+set lines=40 columns=160            " Create a bigger window when starting
+" au GUIEnter * simalt ~x           " Maximize VIM window when starting
+set clipboard=unnamed               " Always use * register for clipboard operations
+set history=500                     " Keep history of 500 edits
+set directory=$TEMP                 " Use temp directory from environment variable for swap files
+set viminfo+=n$userprofile/_viminfo
+set backspace=indent,eol,start      " Enable backspace removing indentation, end of lines and characters before edit start point
+set autochdir                       " Automatically chdir to buffer
+set hidden                          " Automatically set buffer hidden when editing new buffers
+set number                          " Line numbers
+set sidescroll=1                    " Do not jump when scrolling right, scroll char by char
+set scrolloff=3                     " Always keep 3 lines below or above cursor in view
+set sidescrolloff=3                 " Always keep 3 characters left or right from cursor in view
+set linebreak                       " Break lines after words rather than characters (given 'wrap' is on)
+set splitright                      " Put new split windows right
+set splitbelow                      " Put new split windows below
+set fileformat=unix                 " Use Unix linebreaks for default
+set isfname-={,},:                  " When editing tex files, enable vim to "gf" to file in statements like \include{<file>}
+set encoding=utf-8                  " Set default encoding to UTF-8
+set fileencodings=ucs-bom,utf-8,default,latin1
+set wildignore+=*.class,*.dvi,*.aux,*.ps,*.pdf      " Add these extensions (+=) to list of ignored files when pressing tab key for auto completion
+set formatoptions=tcroqnlj          " Format options: t=auto wrap, croj=comment leader, q=format comments, n=number, l=keep long lines
+set autoindent                      " Copy indentation from previous line
+set nocindent                       " Indent behaviour for { } /* */ ( ) ...
+set smartindent                     " Similar to cindent (This is only effective if nocindent)
+set shiftwidth=4                    " Indentation width
+set tabstop=4                       " Note: Setting 'tabstop' to any other value than 8 can make your file appear wrong in many places (e.g., when printing it)
+set softtabstop=0                   " Turn off mixture of spaces and tabs
+set noexpandtab                     " Don't expand tabs to spaces
+set nosmarttab                      " Delete tab width spaces when using spaces for indentation
+set nojoinspaces                    " Don't put two spaces when joining lines [or when autoformatting (set fo+=a), gq etc.] behind . ! ? 
+set showmatch                       " Show matching brackets
+set hlsearch                        " Highlight search matches (toggle with <C-k>)
+set incsearch                       " Search for /pattern/ while typing
+set ignorecase                      " Don't consider case when searching (see smartcase exception)
+set smartcase                       " Only consider case when upper case letters are in search string
 
 " Keys
-nno <C-k> :set hls!<CR>|    " Toggle hightlighting last search matches
-" Indenting
-nno <Tab> >>_
-nno <S-Tab> <<_
-ino <S-Tab> <C-D>
+nno <C-k> :set hls!<CR>|            " Toggle hightlighting last search matches
+
+" Indent
 vno <Tab> >gv
 vno <S-Tab> <gv
+
+" Insert line below and above
+ino <S-CR> <ESC>o
+ino <C-S-CR> <ESC>O
+
 " Bind <C-PageUp> and <C-PageDown> to cycling buffers if there's only one tab
-:nno <C-PageUp>   :if tabpagenr("$") == 1 \| bp \| else \| tabp \| endif<CR>
-:nno <C-PageDown> :if tabpagenr("$") == 1 \| bn \| else \| tabn \| endif<CR>
+nno <C-PageUp>   :silent if tabpagenr("$") == 1 \| bp \| else \| tabp \| endif<CR>
+nno <C-PageDown> :silent if tabpagenr("$") == 1 \| bn \| else \| tabn \| endif<CR>
+
+" Maximize window
+nno <C-z> :if &lines==40 \| simalt ~x \| else \| set lines=40 columns=160 \| endif<CR>
+
+" In split windows, :Bd will remove buffer but keep split windows
+command Bd bp\|bd \#
 
 " Buffer and File settings
-set hidden          " Automatically set buffer hidden when editing new buffers
-set fileformat=unix     " Use Unix linebreaks for default
-set isfname-={,},:      " When editing tex files, enable vim to "gf" to file in statements like \include{<file>}
-set encoding=utf-8
-set fileencodings=ucs-bom,utf-8,default,latin1
-set viminfo+=n$userprofile/_viminfo
-set wildignore+=*.class,*.dvi,*.aux,*.ps,*.pdf      " Add these extensions (+=) to list of ignored files when pressing tab key for auto completion
-set suffixes+=.log,.aux                             " Add these extensions (+=) to to end of displayed files when editing directories (:e .)
-au BufEnter * if expand("%:h") != "" | cd "%:h" | en    " Automatically cd to file directory
-au BufWritePost * filetype detect           " Detect filetype after saving file
-
-" Tabs and Indentation
-set autoindent          " Copy indentation from previous line
-set nocindent           " Indent behaviour for { } /* */ ( ) ...
-set smartindent         " Similar to cindent (This is only effective if nocindent)
-set shiftwidth=4        " Indentation width
-set tabstop=4           " Note: Setting 'tabstop' to any other value than 8 can make your file appear wrong in many places (e.g., when printing it)
-set softtabstop=0       " Turn off mixture of spaces and tabs
-set noexpandtab         " Don't expand tabs to spaces
-set nosmarttab          " Delete tab width spaces when using spaces for indentation
-
-" Editing and Searching
-set history=500         " Keep history of 500 edits
-set backspace=indent,eol,start  " Enable backspace removing indentation, end of lines and characters before edit start point
-set textwidth=0         " Maximum line width (0 is default)
-set nojoinspaces        " Don't put two spaces when joining lines [or when autoformatting (set fo+=a), gq etc.] behind . ! ? 
-set formatoptions=tcroql
-set showmatch           " Show matching brackets
-set hlsearch
-set incsearch           " Search for /pattern/ while typing
-set ignorecase          " Don't consider case when searching (see smartcase exception)
-set smartcase           " Only consider case when upper case letters are in search string
-set linebreak           " Break lines after words rather than characters (given 'wrap' is on)
+au BufWritePost * filetype detect                       " Detect filetype after saving file
 
 " Languages (TODO - the autocommands should go to ftplugin files)
 let g:filetype_inc="php"
 au BufNewFile,BufRead *.php inoremap <buffer> { {<CR>}<ESC>O
 au BufNewFile,BufRead *.inc inoremap <buffer> { {<CR>}<ESC>O
-au BufNewFile,BufRead *.tex     setlocal expandtab textwidth=80 nocin nosi formatoptions=tcql grepprg=grep\ -nH\ $*
-au BufNewFile,BufRead *.txt     setlocal nocin nosi
+au BufNewFile,BufRead *.tex setlocal expandtab textwidth=80 nocin nosi formatoptions=tcql grepprg=grep\ -nH\ $*
+au BufNewFile,BufRead *.txt setlocal nocin nosi
 
-" When editing a file, always jump to the last known cursor position.
-" Don't do it when the position is invalid or when inside an event handler
-" (happens when dropping a file on gvim).
-" Also don't do it when the mark is in the first line, that is the default
-" position when opening a file.
+" When editing a file, always jump to the last known cursor position. Don't do
+" it when the position is invalid or when inside an event handler (happens
+" when dropping a file on gvim). Also don't do it when the mark is in the
+" first line, that is the default position when opening a file.
 autocmd BufReadPost *
         \ if line("'\"") > 1 && line("'\"") <= line("$") |
         \   exe "normal! g`\"" |
         \ endif
-augroup END
 
 " Status line colors
 hi User1 guifg=darkblue guibg=#bbbbff ctermfg=darkblue ctermbg=lightblue
 hi User2 guifg=blue guibg=#bbbbff ctermfg=blue ctermbg=lightblue
 hi User3 guifg=red guibg=#bbbbff ctermfg=red ctermbg=lightblue
+
+" Wipe empty buffers e. g. when opening a buffer
+function! CleanEmptyBuffers()
+    let buffers = filter(range(1, bufnr('$')), 'buflisted(v:val) && empty(bufname(v:val)) && bufwinnr(v:val)<0 && !getbufvar(v:val, "&mod")')
+    if !empty(buffers)
+        exe 'bw ' . join(buffers, ' ')
+    endif
+endfunction
+au BufEnter * silent call CleanEmptyBuffers()
+
+" NERDTree
+" g:NERDTree is not yet set =>
+function! GrowNERDTree()
+	echo "Growing"
+	if exists("g:NERDTree")
+		" Exit Vim if NERDTree is the only window left.
+		autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+		nno <F6> :NERDTreeToggle<CR>
+		NERDTreeToggle
+	endif
+endfunction
