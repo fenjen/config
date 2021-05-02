@@ -1,4 +1,5 @@
 " Window and OS settings
+# colorscheme slate
 syntax on                           " Enable syntax highlighting
 behave xterm                        " Alternative: mswin
 filetype plugin indent on           " Execute scripts from ftplugin directories
@@ -12,7 +13,7 @@ set statusline=%1*%.5Y\ %2*%.60F%1*\ [%M%R]\ [buf\ %3*%n%1*]\ [0x%B]\ [%3*%3l,%3
 set display=lastline                " Show incomplete last lines
 set guifont=Consolas:h9:cANSI:qDRAFT
 set lines=40 columns=160            " Create a bigger window when starting
-" au GUIEnter * simalt ~x           " Maximize VIM window when starting
+" au GUIEnter * simalt ~x           " Maximize vim when starting
 set clipboard=unnamed               " Always use * register for clipboard operations
 set history=500                     " Keep history of 500 edits
 set directory=$TEMP                 " Use temp directory from environment variable for swap files
@@ -43,10 +44,10 @@ set noexpandtab                     " Don't expand tabs to spaces
 set nosmarttab                      " Delete tab width spaces when using spaces for indentation
 set nojoinspaces                    " Don't put two spaces when joining lines [or when autoformatting (set fo+=a), gq etc.] behind . ! ? 
 set showmatch                       " Show matching brackets
+set incsearch                       " Search for pattern while typing
 set hlsearch                        " Highlight search matches (toggle with <C-k>)
-set incsearch                       " Search for /pattern/ while typing
-set ignorecase                      " Don't consider case when searching (see smartcase exception)
-set smartcase                       " Only consider case when upper case letters are in search string
+set ignorecase                      " Don't consider case when searching (with smartcase exception)
+set smartcase                       " Only consider case when there's an upper case letter in search string
 
 " Keys
 nno <C-k> :set hls!<CR>|            " Toggle hightlighting last search matches
